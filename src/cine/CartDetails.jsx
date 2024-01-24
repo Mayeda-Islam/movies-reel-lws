@@ -4,12 +4,13 @@ import { imgUrl } from "../utils/cine-utility";
 import deleteIcon from "../assets/delete.svg";
 
 const CartDetails = ({ onClose }) => {
-  const { cartData, setCartData } = useContext(MovieContext);
-  const handleDeleteCart = (e, id) => {
+  const { state, dispatch } = useContext(MovieContext);
+  const handleDeleteCart = (e, item) => {
     e.preventDefault();
-    const filteredItem = cartData.filter((cartItem) => cartItem.id !== id);
-    console.log(filteredItem);
-    setCartData(filteredItem);
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      payload: item,
+    });
   };
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-black/60 backdrop-blur-sm">
@@ -19,8 +20,8 @@ const CartDetails = ({ onClose }) => {
             Your Carts
           </h2>
           <div className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14">
-            {cartData.length > 0
-              ? cartData.map((item) => (
+            {state.cartData.length > 0
+              ? state.cartData.map((item) => (
                   <div
                     key={item.id}
                     className="grid grid-cols-[1fr_auto] gap-4"
@@ -35,7 +36,7 @@ const CartDetails = ({ onClose }) => {
                       />
                       <div>
                         <h3 className="text-base md:text-xl font-bold">
-                          {cartData.title}
+                          {state.cartData.title}
                         </h3>
                         <p className="max-md:text-xs text-[#575A6E]">
                           {item.genre}
@@ -45,7 +46,7 @@ const CartDetails = ({ onClose }) => {
                     </div>
                     <div className="flex justify-between gap-4 items-center">
                       <button
-                        onClick={(e) => handleDeleteCart(e, item.id)}
+                        onClick={(e) => handleDeleteCart(e, item)}
                         className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white"
                       >
                         <img className="w-5 h-5" src={deleteIcon} alt="" />

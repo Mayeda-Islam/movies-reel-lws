@@ -3,7 +3,7 @@ import ring from "./assets/ring.svg";
 import moon from "./assets/icons/moon.svg";
 import cart from "./assets/shopping-cart.svg";
 import sun from "./assets/icons/sun.svg";
-import { useContext, useState } from "react";
+import { useContext, useReducer, useState } from "react";
 import CartDetails from "./cine/CartDetails";
 import { MovieContext, ThemeContext } from "./context";
 const Header = () => {
@@ -12,7 +12,7 @@ const Header = () => {
     setShowCart(true);
   };
 
-  const { cartData } = useContext(MovieContext);
+  const { state } = useContext(MovieContext);
   const { darkMode, setDarkMode } = useContext(ThemeContext);
 
   return (
@@ -30,9 +30,9 @@ const Header = () => {
               href="#"
             >
               <img src={ring} width="24" height="24" alt="" />
-              {cartData.length > 0 && (
+              {state.cartData.length > 0 && (
                 <span className="rounded-full absolute top-[-12px] left-[-28px] bg-[#12CF6F] text-center p-[2px] w-[30px] h-[30px]">
-                  {cartData.length}
+                  {state.cartData.length}
                 </span>
               )}
             </a>
@@ -44,9 +44,9 @@ const Header = () => {
               href="#"
             >
               <img src={darkMode ? sun : moon} width="24" height="24" alt="" />
-              {cartData.length > 0 && (
+              {state.cartData.length > 0 && (
                 <span className="rounded-full absolute top-[-12px] left-[-28px] bg-[#12CF6F] text-center p-[2px] w-[30px] h-[30px]">
-                  {cartData.length}
+                  {state.cartData.length}
                 </span>
               )}
             </a>
@@ -58,9 +58,9 @@ const Header = () => {
               href="#"
             >
               <img src={cart} width="24" height="24" alt="" />
-              {cartData.length > 0 && (
+              {state.cartData.length > 0 && (
                 <span className="rounded-full absolute top-[-12px] left-[-28px] bg-[#12CF6F] text-center p-[2px] w-[30px] h-[30px]">
-                  {cartData.length}
+                  {state.cartData.length}
                 </span>
               )}
             </a>
