@@ -32,6 +32,7 @@ const MovirCart = ({ movie }) => {
         <MovieDetailsModal
           selectedMovie={selectedMovie}
           onclose={() => setShowModal(false)}
+          onCartAdd={handleAddToCart}
         />
       )}
       <figure
